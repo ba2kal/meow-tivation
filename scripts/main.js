@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
  * 페이지 초기화
  */
 function initializePage() {
-    // 기본 고양이 이미지가 없는 경우 placeholder 설정
-    if (!catImage.src || catImage.src.endsWith('default-cat.png')) {
-        // SVG placeholder로 대체 (실제 이미지를 준비하거나 무료 이미지 사용 가능)
+    // 이미지 로드 실패 시에만 placeholder 설정
+    catImage.addEventListener('error', () => {
+        console.warn('기본 고양이 이미지 로드 실패, placeholder 사용');
         catImage.src = createPlaceholderCatImage();
-    }
+    });
 }
 
 /**
