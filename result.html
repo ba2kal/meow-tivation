@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="오늘의 고양이 명언">
+    <title>오늘의 명언 - Meow-tivation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Gowun+Batang:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/result.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="back-link">← 돌아가기</a>
+            <h1 class="logo">Meow-tivation 🐱</h1>
+        </header>
+
+        <main>
+            <div class="result-container">
+                <div class="cat-image-container">
+                    <img src="" alt="AI가 생성한 귀여운 고양이" class="generated-cat" id="generatedCat">
+                    <div class="image-shimmer"></div>
+                </div>
+
+                <div class="quote-container">
+                    <div class="quote-mark opening">"</div>
+                    <blockquote class="quote-text" id="quoteText">
+                        명언을 불러오는 중입니다...
+                    </blockquote>
+                    <div class="quote-mark closing">"</div>
+                    <cite class="quote-author" id="quoteAuthor">- 출처</cite>
+                    <div class="quote-timestamp" id="timestamp" style="display: none;"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-button share-button" id="shareButton">
+                        <span class="button-icon">📤</span>
+                        <span class="button-text">공유하기</span>
+                    </button>
+                    <button class="action-button new-quote-button" id="newQuoteButton">
+                        <span class="button-icon">🔄</span>
+                        <span class="button-text">새로운 명언</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with 💝 by Cat Lovers</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">✅</span>
+        <span class="toast-message">클립보드에 복사되었습니다!</span>
+    </div>
+
+    <script src="scripts/result.js"></script>
+</body>
+</html>

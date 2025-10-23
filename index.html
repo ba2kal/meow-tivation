@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="귀여운 고양이가 전하는 매일의 힐링 명언">
+    <title>Meow-tivation - 오늘의 명언</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Meow-tivation 🐱</h1>
+            <p class="subtitle">하루를 시작하는 힐링 명언</p>
+        </header>
+
+        <main>
+            <div class="cat-container">
+                <div class="cat-image-wrapper">
+                    <img src="assets/images/default-cat.png" alt="귀여운 고양이" class="cat-image" id="catImage">
+                    <div class="cat-shadow"></div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">어떤 명언이 필요하신가요?</h2>
+                <div class="category-grid">
+                    <button class="category-card" data-category="comfort">
+                        <span class="category-icon">💝</span>
+                        <span class="category-name">위로</span>
+                    </button>
+                    <button class="category-card" data-category="motivation">
+                        <span class="category-icon">🔥</span>
+                        <span class="category-name">동기부여</span>
+                    </button>
+                    <button class="category-card" data-category="happiness">
+                        <span class="category-icon">😊</span>
+                        <span class="category-name">행복</span>
+                    </button>
+                    <button class="category-card" data-category="challenge">
+                        <span class="category-icon">⚡</span>
+                        <span class="category-name">도전</span>
+                    </button>
+                    <button class="category-card" data-category="success">
+                        <span class="category-icon">🏆</span>
+                        <span class="category-name">성공</span>
+                    </button>
+                    <button class="category-card" data-category="love">
+                        <span class="category-icon">💕</span>
+                        <span class="category-name">사랑</span>
+                    </button>
+                    <button class="category-card" data-category="wisdom">
+                        <span class="category-icon">📚</span>
+                        <span class="category-name">지혜</span>
+                    </button>
+                    <button class="category-card" data-category="peace">
+                        <span class="category-icon">🌸</span>
+                        <span class="category-name">평온</span>
+                    </button>
+                </div>
+                <p class="category-hint">카테고리를 선택하지 않으면 랜덤으로 선택됩니다</p>
+            </div>
+
+            <div class="button-container">
+                <button class="quote-button" id="quoteButton">
+                    <span class="button-text">오늘의 명언 받기</span>
+                    <span class="button-icon">✨</span>
+                </button>
+            </div>
+
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-content">
+                    <div class="loading-cat">🐱</div>
+                    <p class="loading-text">고양이가 명언을 찾고 있어요...</p>
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with 💝 by Cat Lovers</p>
+        </footer>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
