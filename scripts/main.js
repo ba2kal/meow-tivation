@@ -1,7 +1,8 @@
 // Configuration
 const CONFIG = {
-    // TODO: n8n 워크플로우 생성 후 실제 Webhook URL로 교체하세요
-    N8N_WEBHOOK_URL: 'http://localhost:5678/webhook-test/meow-tivation/create',
+    // WAS 서버 API 엔드포인트 (Vercel Serverless Function)
+    // 보안: n8n URL은 서버 환경변수에 저장되어 클라이언트에 노출되지 않음
+    API_ENDPOINT: '/api/quote',
     LOADING_MIN_TIME: 2000, // 최소 로딩 시간 (밀리초)
 };
 
@@ -97,39 +98,57 @@ async function handleQuoteButtonClick() {
 }
 
 /**
- * n8n 워크플로우를 통해 명언 및 이미지 생성
+ * WAS 서버 API를 통해 명언 및 이미지 생성
+ * (서버에서 n8n 워크플로우 호출)
  */
 async function fetchDailyQuote(category = null) {
-    // n8n Webhook URL이 설정되지 않은 경우
-    if (CONFIG.N8N_WEBHOOK_URL === 'YOUR_N8N_WEBHOOK_URL_HERE') {
-        console.warn('n8n Webhook URL이 설정되지 않았습니다. 테스트 데이터를 사용합니다.');
-        return getMockData(category);
+    try {
+        const response = await fetch(CONFIG.API_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                trigger: 'daily_quote',
+                category: category
+            }),
+        });
+
+        // Rate Limit 에러 처리 (429)
+        if (response.status === 429) {
+            const errorData = await response.json();
+            const retryAfter = errorData.retryAfter || 60;
+            throw new Error(
+                `너무 많은 요청이 발생했습니다.\n${retryAfter}초 후에 다시 시도해주세요.`
+            );
+        }
+
+        // 기타 HTTP 에러 처리
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(
+                errorData.message ||
+                `서버 오류가 발생했습니다. (상태 코드: ${response.status})`
+            );
+        }
+
+        const data = await response.json();
+
+        // 응답 데이터 검증
+        if (!data.success || !data.data) {
+            throw new Error('잘못된 응답 형식입니다.');
+        }
+
+        return data.data;
+    } catch (error) {
+        // 네트워크 오류 또는 fetch 실패
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+            throw new Error('네트워크 연결을 확인해주세요.');
+        }
+
+        // 다른 에러는 그대로 전달
+        throw error;
     }
-
-    const response = await fetch(CONFIG.N8N_WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            trigger: 'daily_quote',
-            category: category,
-            timestamp: new Date().toISOString()
-        }),
-    });
-
-    if (!response.ok) {
-        throw new Error(`HTTP 오류! 상태 코드: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    // 응답 데이터 검증
-    if (!data.success || !data.data) {
-        throw new Error('잘못된 응답 형식입니다.');
-    }
-
-    return data.data;
 }
 
 /**
